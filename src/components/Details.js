@@ -42,6 +42,7 @@ const Container = styled.div`
   min-height: calc(100vh - 70px);
   padding: 0 calc(3.5vw + 5px);
   position: relative;
+  overflow: hidden;
 `;
 
 const Background = styled.div`
@@ -61,7 +62,7 @@ const Background = styled.div`
 `;
 
 const ImageTitle = styled.div`
-  margin: 30px 0px;
+  margin-top: 60px;
   height: 30vh;
   width: 35vw;
   min-height: 170px;
@@ -132,4 +133,5 @@ const Description = styled.div`
   font-size: 20px;
   margin-top: 16px;
   color: rgb(249, 249, 249);
+  max-width: 760px;
 `;
