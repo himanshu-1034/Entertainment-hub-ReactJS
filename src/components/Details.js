@@ -1,39 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import PlayBtnImg from "../images/play-icon-black.png";
 import TrailerBtnImg from "../images/play-icon-white.png";
 import GroupIcon from "../images/group-icon.png";
+import { useHistory, useParams } from "react-router-dom";
+import db from "../firebase";
 export default function Details() {
+  const { id } = useParams();
+  const [selectedMovieData, setSelectedMovieData] = useState({});
+  useEffect(() => {
+    db.collection("movies")
+      .doc(id)
+      .get()
+      .then((data) => {
+        if (data.exists) {
+          setSelectedMovieData(data.data());
+        } else {
+          alert("Selected Movie Exists No Longer");
+        }
+      });
+  }, []);
+
   return (
     <Container>
-      <Background>
-        <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4F39B7E16726ECF419DD7C49E011DD95099AA20A962B0B10AA1881A70661CE45/scale?width=1440&aspectRatio=1.78&format=jpeg" />
-      </Background>
-      <ImageTitle>
-        <img src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/D7AEE1F05D10FC37C873176AAA26F777FC1B71E7A6563F36C6B1B497CAB1CEC2/scale?width=1440&aspectRatio=1.78" />
-      </ImageTitle>
-      <Controls>
-        <PlayButton>
-          <img src={PlayBtnImg} />
-          <span>PLAY</span>
-        </PlayButton>
-        <TrailerButton>
-          <img src={TrailerBtnImg} />
-          <span>Trailer</span>
-        </TrailerButton>
-        <AddButton>
-          <span>+</span>
-        </AddButton>
-        <GroupWatchButton>
-          <img src={GroupIcon} />
-        </GroupWatchButton>
-      </Controls>
-      <SubTitle>lorem ipsum lorem ipsum lorem ipsum</SubTitle>
-      <Description>
-        lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-        lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-        lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-      </Description>
+      {selectedMovieData && (
+        <>
+          {" "}
+          <Background>
+            <img src={selectedMovieData.backgroundImg} />
+          </Background>
+          <ImageTitle>
+            <img src={selectedMovieData.titleImg} />
+          </ImageTitle>
+          <Controls>
+            <PlayButton>
+              <img src={PlayBtnImg} />
+              <span>PLAY</span>
+            </PlayButton>
+            <TrailerButton>
+              <img src={TrailerBtnImg} />
+              <span>Trailer</span>
+            </TrailerButton>
+            <AddButton>
+              <span>+</span>
+            </AddButton>
+            <GroupWatchButton>
+              <img src={GroupIcon} />
+            </GroupWatchButton>
+          </Controls>
+          <SubTitle>{selectedMovieData.subTitle}</SubTitle>
+          <Description>{selectedMovieData.description}</Description>
+        </>
+      )}
     </Container>
   );
 }
