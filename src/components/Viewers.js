@@ -5,11 +5,6 @@ import Viewers2 from "../images/viewers-marvel.png";
 import Viewers3 from "../images/viewers-national.png";
 import Viewers4 from "../images/viewers-pixar.png";
 import Viewers5 from "../images/viewers-starwars.png";
-import Video1 from "../videos/disney.mp4";
-import Video2 from "../videos/marvel.mp4";
-import Video3 from "../videos/national-geographic.mp4";
-import Video4 from "../videos/pixar.mp4";
-import Video5 from "../videos/star-wars.mp4";
 export default function Viewers() {
   return (
     <Container>
